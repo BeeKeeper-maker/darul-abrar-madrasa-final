@@ -12,6 +12,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\FeeController;
 use App\Http\Controllers\GuardianController;
+use App\Http\Controllers\GradingScaleController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ResultController;
@@ -104,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
         
         // Notice management
         Route::resource('notices', NoticeController::class);
+
+        // Grading Scale management
+        Route::resource('grading-scales', GradingScaleController::class)->except(['show']);
     });
     
     // Teacher routes
