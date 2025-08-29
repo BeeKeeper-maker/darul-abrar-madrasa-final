@@ -70,20 +70,18 @@ class MarksEntry extends Component
             ->orderBy('name')
             ->get();
             
+        // Eager load existing results to prevent N+1 query problem
+        $studentIds = $this->students->pluck('id');
+        $existingResults = Result::where('exam_id', $this->exam_id)
+            ->whereIn('student_id', $studentIds)
+            ->get()
+            ->keyBy(fn($result) => $result->student_id . '-' . $result->subject_id);
+
         // Initialize marks array
         foreach ($this->students as $student) {
             foreach ($this->subjects as $subject) {
-                // Check if marks already exist
-                $result = Result::where('student_id', $student->id)
-                    ->where('exam_id', $this->exam_id)
-                    ->where('subject_id', $subject->id)
-                    ->first();
-                    
-                if ($result) {
-                    $this->marks[$student->id][$subject->id] = $result->marks_obtained;
-                } else {
-                    $this->marks[$student->id][$subject->id] = '';
-                }
+                $key = $student->id . '-' . $subject->id;
+                $this->marks[$student->id][$subject->id] = $existingResults->get($key)?->marks_obtained ?? '';
             }
         }
         
