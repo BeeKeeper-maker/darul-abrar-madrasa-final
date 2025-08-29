@@ -15,6 +15,7 @@ use App\Http\Controllers\GuardianController;
 use App\Http\Controllers\GradingScaleController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudyMaterialController;
@@ -108,6 +109,10 @@ Route::middleware(['auth'])->group(function () {
 
         // Grading Scale management
         Route::resource('grading-scales', GradingScaleController::class)->except(['show']);
+
+        // Settings management
+        Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+        Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
     });
     
     // Teacher routes
