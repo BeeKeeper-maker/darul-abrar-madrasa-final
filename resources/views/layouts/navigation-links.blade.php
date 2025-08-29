@@ -6,7 +6,7 @@
     <span>ড্যাশবোর্ড</span>
 </a>
 
-@if(auth()->user()->role === 'admin')
+@if(auth()->user()->isAdmin())
     <!-- User Management -->
     <a href="{{ route('users.index') }}" class="flex items-center px-4 py-2 {{ request()->routeIs('users.*') ? 'bg-primary-600 dark:bg-gray-700 text-white' : 'text-gray-100 hover:bg-primary-600 dark:hover:bg-gray-700 hover:text-white' }} rounded-md transition-all">
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,7 +115,7 @@
     </a>
 @endif
 
-@if(auth()->user()->role === 'admin' || auth()->user()->role === 'teacher')
+@if(auth()->user()->isAdmin() || auth()->user()->isTeacher())
     <!-- Attendance Management -->
     <a href="{{ route('attendances.index') }}" class="flex items-center px-4 py-2 {{ request()->routeIs('attendances.*') ? 'bg-primary-600 dark:bg-gray-700 text-white' : 'text-gray-100 hover:bg-primary-600 dark:hover:bg-gray-700 hover:text-white' }} rounded-md transition-all">
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -157,7 +157,7 @@
     </a>
 @endif
 
-@if(auth()->user()->role === 'student')
+@if(auth()->user()->isStudent())
     <!-- My Attendance -->
     <a href="{{ route('my.attendance') }}" class="flex items-center px-4 py-2 {{ request()->routeIs('my.attendance') ? 'bg-primary-600 dark:bg-gray-700 text-white' : 'text-gray-100 hover:bg-primary-600 dark:hover:bg-gray-700 hover:text-white' }} rounded-md transition-all">
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -199,7 +199,7 @@
     </a>
 @endif
 
-@if(auth()->user()->role === 'guardian')
+@if(auth()->user()->isGuardian())
     <!-- Children's Attendance -->
     <a href="{{ route('guardian.attendances') }}" class="flex items-center px-4 py-2 {{ request()->routeIs('guardian.attendances') ? 'bg-primary-600 dark:bg-gray-700 text-white' : 'text-gray-100 hover:bg-primary-600 dark:hover:bg-gray-700 hover:text-white' }} rounded-md transition-all">
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
