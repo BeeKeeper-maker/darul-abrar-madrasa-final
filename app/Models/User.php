@@ -26,6 +26,9 @@ class User extends Authenticatable
         'role',
         'avatar',
         'phone',
+        'address',
+        'date_of_birth',
+        'gender',
         'is_active',
     ];
 
@@ -123,5 +126,36 @@ class User extends Authenticatable
     public function isGuardian(): bool
     {
         return $this->role === 'guardian';
+    }
+    
+    /**
+     * Check if the user has a specific role.
+     */
+    public function hasRole(string $role): bool
+    {
+        return $this->role === $role;
+    }
+    
+    /**
+     * Get the roles for the user (simplified for single role system).
+     */
+    public function getRolesAttribute()
+    {
+        return collect([(object)['name' => $this->role]]);
+    }
+    
+    /**
+     * Get the user's role display name in Bangla.
+     */
+    public function getRoleDisplayAttribute(): string
+    {
+        return match($this->role) {
+            'admin' => 'প্রশাসক',
+            'teacher' => 'শিক্ষক',
+            'student' => 'ছাত্র/ছাত্রী',
+            'guardian' => 'অভিভাবক',
+            'staff' => 'কর্মচারী',
+            default => 'ব্যবহারকারী'
+        };
     }
 }

@@ -66,6 +66,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.delete-avatar');
     
     // Notifications
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
@@ -82,9 +83,18 @@ Route::middleware(['auth'])->group(function () {
         
         // User management
         Route::resource('users', UserController::class);
+        Route::put('/users/{user}/toggle-status', [UserController::class, 'toggleStatus'])->name('users.toggle-status');
+        Route::put('/users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+        Route::post('/users/bulk-action', [UserController::class, 'bulkAction'])->name('users.bulk-action');
         
         // Department management
         Route::resource('departments', DepartmentController::class);
+        Route::put('/departments/{department}/toggle-status', [DepartmentController::class, 'toggleStatus'])->name('departments.toggle-status');
+        Route::post('/departments/bulk-action', [DepartmentController::class, 'bulkAction'])->name('departments.bulk-action');
+        Route::get('/departments/{department}/report', [DepartmentController::class, 'generateReport'])->name('departments.report');
+        
+        // API routes for departments
+        Route::get('/api/departments', [DepartmentController::class, 'getDepartments'])->name('api.departments');
         
         // Class management
         Route::resource('classes', ClassController::class);
@@ -100,6 +110,11 @@ Route::middleware(['auth'])->group(function () {
         
         // Subject management
         Route::resource('subjects', SubjectController::class);
+        Route::put('/subjects/{subject}/toggle-status', [SubjectController::class, 'toggleStatus'])->name('subjects.toggle-status');
+        Route::post('/subjects/bulk-action', [SubjectController::class, 'bulkAction'])->name('subjects.bulk-action');
+        
+        // AJAX routes
+        Route::get('/api/subjects/by-class', [SubjectController::class, 'getByClass'])->name('api.subjects.by-class');
         
         // Exam management
         Route::resource('exams', ExamController::class);
