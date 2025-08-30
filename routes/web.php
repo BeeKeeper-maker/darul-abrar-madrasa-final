@@ -56,6 +56,12 @@ Route::middleware(['auth'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
+    // Test routes for debugging (remove in production)
+    Route::get('/test-role-middleware', [App\Http\Controllers\TestController::class, 'testRoleMiddleware'])->name('test.role');
+    Route::get('/debug-middleware', function () {
+        return view('debug.middleware-test');
+    })->name('debug.middleware');
+    
     // Profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -71,6 +77,9 @@ Route::middleware(['auth'])->group(function () {
     
     // Admin routes
     Route::middleware(['auth', 'role:admin'])->group(function () {
+        // Test admin role middleware
+        Route::get('/test-admin-role', [App\Http\Controllers\TestController::class, 'testAdminRole'])->name('test.admin');
+        
         // User management
         Route::resource('users', UserController::class);
         
@@ -117,6 +126,9 @@ Route::middleware(['auth'])->group(function () {
     
     // Teacher routes
     Route::middleware(['auth', 'role:teacher'])->group(function () {
+        // Test teacher role middleware
+        Route::get('/test-teacher-role', [App\Http\Controllers\TestController::class, 'testTeacherRole'])->name('test.teacher');
+        
         // Attendance management
         Route::get('/attendances/create/{class_id}', [AttendanceController::class, 'createByClass'])->name('attendances.create.class');
         Route::post('/attendances/store-bulk', [AttendanceController::class, 'storeBulk'])->name('attendances.store.bulk');
