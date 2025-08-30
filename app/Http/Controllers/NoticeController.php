@@ -16,7 +16,7 @@ class NoticeController extends Controller
     public function index(): View
     {
         $notices = Notice::with('publishedBy')
-            ->orderBy('publish_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
             
         return view('notices.index', compact('notices'));
