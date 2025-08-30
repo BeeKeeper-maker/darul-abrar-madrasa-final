@@ -32,6 +32,9 @@
     @stack('styles')
 </head>
 <body class="font-sans antialiased bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+     <!-- Page Loader Component -->
+    <x-page-loader />
+    
     <div x-data="{ sidebarOpen: false }" class="min-h-screen flex flex-col">
         <!-- Sidebar for mobile -->
         <div x-show="sidebarOpen" class="fixed inset-0 z-40 lg:hidden" x-cloak>
