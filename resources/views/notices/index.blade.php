@@ -37,25 +37,19 @@
                                     <div class="font-medium text-gray-900 dark:text-gray-100">{{ $notice->title }}</div>
                                 </td>
                                 <td class="table-cell">
-                                    <span class="badge badge-primary">{{ $notice->type }}</span>
+                                    <span class="badge badge-primary">{{ $notice->notice_for }}</span>
                                 </td>
                                 <td class="table-cell">
-                                    @if($notice->priority === 'high')
-                                        <span class="badge badge-danger">উচ্চ</span>
-                                    @elseif($notice->priority === 'medium')
-                                        <span class="badge badge-warning">মধ্যম</span>
-                                    @else
-                                        <span class="badge badge-success">কম</span>
-                                    @endif
+                                    <span class="badge badge-secondary">সাধারণ</span>
                                 </td>
-                                <td class="table-cell">{{ $notice->user->name }}</td>
-                                <td class="table-cell">{{ $notice->published_at ? $notice->published_at->format('d/m/Y') : 'N/A' }}</td>
-                                <td class="table-cell">{{ $notice->expires_at ? $notice->expires_at->format('d/m/Y') : 'N/A' }}</td>
+                                <td class="table-cell">{{ $notice->publishedBy->name ?? 'N/A' }}</td>
+                                <td class="table-cell">{{ $notice->publish_date ? $notice->publish_date->format('d/m/Y') : 'N/A' }}</td>
+                                <td class="table-cell">{{ $notice->expiry_date ? $notice->expiry_date->format('d/m/Y') : 'N/A' }}</td>
                                 <td class="table-cell">
-                                    @if($notice->is_published)
-                                        <span class="badge badge-success">প্রকাশিত</span>
+                                    @if($notice->is_active)
+                                        <span class="badge badge-success">সক্রিয়</span>
                                     @else
-                                        <span class="badge badge-danger">অপ্রকাশিত</span>
+                                        <span class="badge badge-danger">নিষ্ক্রিয়</span>
                                     @endif
                                 </td>
                                 <td class="table-cell">
