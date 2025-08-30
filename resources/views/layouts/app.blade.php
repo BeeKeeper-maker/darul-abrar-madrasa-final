@@ -75,6 +75,7 @@
                     </nav>
                 </div>
                 
+                @auth
                 <div class="flex-shrink-0 flex border-t border-primary-800 dark:border-gray-700 p-4">
                     <div class="flex items-center">
                         <div>
@@ -92,6 +93,7 @@
                         </div>
                     </div>
                 </div>
+                @endauth
             </div>
             
             <div class="flex-shrink-0 w-14">
@@ -111,6 +113,7 @@
                         @include('layouts.navigation-links')
                     </nav>
                 </div>
+                @auth
                 <div class="flex-shrink-0 flex border-t border-primary-800 dark:border-gray-700 p-4">
                     <div class="flex items-center">
                         <div>
@@ -128,6 +131,7 @@
                         </div>
                     </div>
                 </div>
+                @endauth
             </div>
         </div>
 
@@ -168,6 +172,7 @@
                         <x-notification-dropdown />
                         
                         <!-- Profile dropdown -->
+                        @auth
                         <div x-data="{ open: false }" class="relative">
                             <div>
                                 <button @click="open = !open" class="max-w-xs bg-white dark:bg-gray-800 flex items-center text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
@@ -203,6 +208,7 @@
                                 </form>
                             </div>
                         </div>
+                        @endauth
                     </div>
                 </div>
             </div>
